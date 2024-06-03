@@ -1,0 +1,145 @@
+\section{Software Testing}
+
+\begin{mdframed}
+    Software testing: indagine condotta per fornire alle parti interessate informazioni sulla qualità del prodotto o del servizio software sottoposto a test.
+\end{mdframed}
+\begin{mdframed}
+    Testing: processo che consiste in tutte le attività del lifecycle, sia statiche che dinamiche, che riguardano la pianificazione, la preparazione e la valutazione dei prodotti software e dei relativi prodotti di lavoro per determinare che soddisfino i requisiti specificati, per dimostrare che sono adatti allo scopo e per rilevare i difetti.
+\end{mdframed}
+
+\subsection{Difetti nel Software}
+Il difetto può essere inserito sia dal Programmatore che dall'Analista:
+\begin{itemize}
+    \item \textbf{Programmatore} (45\%)
+    \begin{enumerate}
+        \item fa un errore (mistake) durante la fase di sviluppo
+        \item inserisce un difetto (fault o bug) all'interno del programma
+        \item quando il programma viene eseguito, e la condizione non considerata dal programmatore si verifica, il difetto provocherà un comportamento inatteso del programma
+        \item il programma avrà quindi una failure
+    \end{enumerate}
+    \item \textbf{Analista} (20\% analisi requisiti, 25\% progettazione)
+    \begin{enumerate}
+        \item può introdurre un difetto, interpretando non correttamente un requisito
+        \item il difetto viene introdotto nella fase di analisi e progettazione
+        \item la progettazione del programma e la codifica possono essere influenzate dal difetto
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Categorie di Testing}
+\begin{itemize}
+    \item \textbf{Funzionale:} Test condotti per valutare la conformità di un componente o di un sistema ai requisiti funzionali.
+    \begin{itemize}
+        \item rappresentano cosa fa la nostra applicazione
+        \item tipicamente più semplici da progettare perché collegati alle funzioni richieste dal cliente
+    \end{itemize}
+    \item \textbf{Non Funzionale:} Test condotti per valutare la conformità di un componente o di un sistema ai requisiti non funzionali (performance, sicurezza, usabilità, accessibilità).
+    \begin{itemize}
+        \item rappresentano come la nostra applicazione risponde alle esigenze
+    \end{itemize}
+    \item \textbf{Statico:} Testare un prodotto di lavoro senza l'esecuzione del codice.
+    \begin{itemize}
+        \item analisi statica del codice
+        \item analisi e revisione dei documenti
+        \item analisi e revisione dei requisiti
+    \end{itemize}
+    \item \textbf{Dinamico:} Collaudo che prevede l'esecuzione del software di un componente o di un sistema.
+    \item \textbf{Verifica:} Il prodotto è stato realizzato secondo le specifiche (tecniche) e funziona correttamente.
+    \item \textbf{Validazione:} Il prodotto è stato realizzato rispettando le specifiche dell'utente (requisiti)
+\end{itemize}
+
+\subsection{Processo di Test}
+\begin{enumerate}
+    \item \textbf{Test planning:} l'attività di definizione o aggiornamento di un piano di test
+    \item \textbf{Test control:} azioni correttive e di controllo se il piano non viene rispettato
+    \item \textbf{Test analysis:} cosa testare
+    \item \textbf{Test design:} come testare
+    \item \textbf{Test implementation:} attività propedeutica all'esecuzione
+    \item \textbf{Test execution:} eseguire il test
+    \item \textbf{Checking result:} verificare i risultati e i dati collezionati dalla test execution per capire se il test è stato superato/fallito
+    \item \textbf{Evalutating exit criteria:} verificare se sono stati raggiunti gli exit criteria definiti nel test plan
+    \item \textbf{Test results reporting:} riportare il progresso rispetto agli exit criteria definiti nel test plan
+    \item \textbf{Test closure:} chiusura del processo e definizione azioni di miglioramento
+\end{enumerate}
+
+\subsection{7 Testing Principles}
+
+\subsubsection{Testing show presence of difects}
+Testare un'applicazione può solo rivelare che uno o più difetti esistono nell'applicazione.
+Il test non può dimostrare che l'applicazione sia priva di errori.
+Pertanto, è importante progettare casi di test per trovare il maggior numero possibile di difetti.
+
+\subsubsection{Exhaustive testing is impossible}
+A meno che l'applicazione in prova abbia una struttura logica molto semplice e un input limitato, non è possibile testare tutte le possibili combinazioni di dati e scenari.
+Per questo motivo, il rischio e le priorità vengono utilizzati per concentrarsi sugli aspetti più importanti da testare.
+Strategie per selezionare i test baste:
+\begin{itemize}
+    \item sul rischio (risk based testing): funzionalità che hanno impatto sul business
+    \item sui requisiti (requirement based)
+\end{itemize}
+
+\subsubsection{Early testing}
+Avviare la fase di test il prima possibile permette di risparmiare sui costi del progetto.
+Il processo di test non deve essere eseguito quando il progetto è al termine, ma deve andare in parallelo con il processo di sviluppo.
+
+\subsubsection{Defect clustering}
+Durante i test, si può osservare che la maggior parte dei difetti segnalati sono legati a un numero ridotto di moduli all'interno di un sistema.
+Un piccolo numero di moduli contiene la maggior parte dei difetti nel sistema.
+Questa è l'applicazione del principio di Pareto ai test del software: circa l'80\% dei problemi si trova nel 20\% dei moduli.
+
+\subsubsection{The pesticide paradox}
+Se continui a eseguire lo stesso set di test più e più volte (ad ogni nuova versione), siamo sicuri che non ci saranno più gli stessi difetti scoperti da quei casi di test.
+Poiché il sistema si evolve, molti dei difetti precedentemente segnalati vengono corretti. Ogni volta che viene risolto un errore o è stata aggiunta una nuova funzionalità, è necessario eseguire tutti i test (di non regressione) per assicurarsi che il nuovo software modificato non abbia interrotto vecchi errori.
+Tuttavia, anche questi casi di test di non regressione devono essere modificati per riflettere le modifiche apportate nel software per essere applicabili.
+
+\subsubsection{Testing is context dependent}
+Diverse metodologie, tecniche e tipi di test sono legati al tipo e alla natura dell'applicazione.
+Ad esempio, un'applicazione software in un dispositivo medico richiede più test di un software di giochi.
+Un software per dispositivi medici richiede test basati sul rischio, essere conformi con i regolatori dell'industria medica e possibilmente con specifiche tecniche di progettazione dei test.
+
+\subsubsection{Absence of errors fallacy}
+Solo perché il test non ha riscontrato alcun difetto nel software, non significa che il software sia perfetto e pronto per essere rilasciato.
+I test eseguiti sono stati davvero progettati per catturare il maggior numero di difetti?
+il software corrispondeva ai requisiti dell'utente?
+
+\subsection{V-model}
+Il modello a V spezza lo sviluppo del software in fasi successive. A ciascuna fase di sviluppo è associata lacorrispondente tipologia di test.
+Ci sono quattro tipologie di test Unit, Integration, System e Acceptance.
+
+\subsubsection{Unit testing}
+\begin{itemize}
+    \item Verificano l'unità: il più piccolo sottosistema possibile che può essere testato separatamente
+    \item Veloci da eseguire
+    \item Ogni modifica del codice sorgente dovrebbe scatenare l'esecuzione degli unit test
+    \item Sono indipendenti tra di loro
+    \item SUT è considerato come white box
+\end{itemize}
+
+\subsubsection{Integration testing}
+\begin{itemize}
+    \item Verificano se sono rispettati i contratti di interfaccia tra più moduli o sub-system
+    \item Verificano l'integrazione tra più sub-systems
+    \item I Sub-Systems possono essere:
+    \begin{itemize}
+        \item Sub-system Interni: già verificati dagli unit testing
+        \item Sub-system Esterni: database, filesystem, ...
+    \end{itemize}
+    \item Gli "Integration testing" sono più lenti da configurare e da eseguire
+    \item SUT è considerato come white box
+\end{itemize}
+
+\subsubsection{System testing}
+\begin{itemize}
+    \item Verificano il comportamento dell'intero sistema
+    \item Lo scopo principale dei system test è la verifica rispetto alle specifiche tecniche
+    \item SUT è considerato come white box o black box
+\end{itemize}
+
+\subsubsection{Acceptance testing}
+\begin{itemize}
+    \item Anche conosciuti come "UAT": User Acceptance Testing o "End User testing"
+    \item Test suites su tutto il SUT, relativi agli use cases e ai requisiti concordati con l'utente finale/cliente
+    \item Svolti con l'utente finale/cliente
+    \item SUT è considerato come black box
+\end{itemize}
+
+\newpage
