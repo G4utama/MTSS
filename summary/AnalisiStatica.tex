@@ -1,0 +1,76 @@
+\section{Analisi Statica}
+\begin{mdframed}
+    Analisi Statica: analisi di un software che non richiede l'esecuzione del codice per essere eseguita.
+\end{mdframed}
+A differenza della dinamica che viene eseguita quando il programma è in esecuzione.
+Può essere fatta sul codice sorgente o sul codice oggetto.
+Il termine è associato all'analisi effettuata da uno strumento automatico, mentre l'analisi fatta da un essere umano è detta, program understanding, program comprehension o code review.
+È un tipo di test:
+\begin{itemize}
+    \item \textbf{Statico:} non ho bisogno di eseguire codice.
+    \item \textbf{White box:} ho bisogno di vedere il codice.
+    \item \textbf{Non funzionale:} controllo in che modo il è strutturato, non quello che fa.
+\end{itemize}
+
+\subsection{Automated Code Review Software}
+\begin{mdframed}
+    \textbf{Automated code review software:} verifica il codice sorgente per la conformità con un insieme di regole predefinite obest practices.
+\end{mdframed}
+
+\subsubsection{Caratteristiche}
+\begin{itemize}
+    \item Rappresenta una pratica standard.
+    \item Può essere fatto sia a mano che automatizzato.
+    \item Solitamentemostra una serie di warning con l'elenco delle violazioni riscontrate.
+    \item Può anche fornire un sistema per correggere gli errori trovati.
+\end{itemize}
+
+\subsubsection{Strumenti}
+\begin{itemize}
+    \item Possono essere utilizzate per assistere la Automated Code Review.
+    \item Non sono efficaci come il controllo umano ma possono essere eseguiti più velocemente. 
+    \item Incapsulano al loro interno una conoscenza profonda delle regole e della semantica per eseguire l'analisi
+    \item Permettono al verificatore di non necessitare dello stesso livello di esperienza di un esperto del settore.
+\end{itemize}
+
+\subsection{Teoria delle Finestre Rotte}
+La teoria delle finestre rotte è una teoria criminologica sulla capacità del disordine urbano e del vandalismo di generare criminalità aggiuntiva e comportamenti antisociali.
+La teoria afferma che mantenere e controllare ambienti urbani reprimendo i piccoli reati, gli atti vandalici, la deturpazione dei luoghi, il bere in pubblico, la sosta selvaggia o l'evasione nel pagamento di parcheggi, mezzi pubblici o pedaggi, contribuisce a creare un clima di ordine e legalità e riduce il rischio di crimini più gravi. \\ \\
+Ad esempio l'esistenza di una finestra rotta potrebbe generare fenomeni di emulazione, portando qualcun altro a rompere un lampione o un idrante, dando così inizio a una spirale di degrado urbano e sociale.
+
+\subsection{Tools}
+\begin{itemize}
+    \item \textbf{Checkstyle:} strumento di sviluppo che aiuta i programmatori a scrivere codice Java che aderisce a uno standard di codifica. Automatizza il processo di verifica del codice Java.
+    \item \textbf{FindBugs/SpotBugs:} programma che utilizza l'analisi statica per cercare i bug nel codice Java.
+    \item \textbf{PMD:} analizzatore statico di codice sorgente, che trova i più comuni difetti di programmazione.
+    \item \textbf{SonarQube:} strumento di revisione automatica del codice per individuare bug, vulnerabilità e code smell nel codice. \\
+    Funzionalità:
+    \begin{itemize}
+        \item storicizza l'andamento della qualità
+        \item verifica se c'è un miglioramento o un deterioramento del progetto nel tempo
+        \item stabilisce un insieme di regole da applicare al progetto [quality profile]
+        \item verifica se la qualità del progetto rispetta determinati standard [quality gate]
+        \item classifica issue in base alla gravità (blocker, critical, major, minor, info)
+        \item classifica issue in: vulnerabilità , bug, code smell
+        \item revisiona le issue segnalate e segna i falsi positivi
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Funzionalità}
+Le funzionalità sono simili a quelle di un correttore automatico che segnala un errore. Permettono di:
+\begin{itemize}
+    \item Imporre il rispetto di convenzioni e stili
+    \item Verificare la congruità della documentazione
+    \item Controllare metriche e indicatori
+    \begin{itemize}
+        \item complessità ciclomatica
+        \item grafo dipendenze
+        \item numerosità righe di codice
+    \end{itemize}
+    \item Ricercare codice copiato in più punti
+    \item Ricercare errori comuni nel codice
+    \item Misurare la percentuale di codice testato
+    \item Ricercare indicatori di parti incomplete
+\end{itemize}
+
+\newpage
