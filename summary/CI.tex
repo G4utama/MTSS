@@ -1,0 +1,118 @@
+\section{Continuous Integration}
+\begin{mdframed}
+    \textbf{Continuous Integration:} allineamento frequente dagli ambienti di lavoro degli sviluppatori verso l'ambiente condiviso.
+\end{mdframed}
+
+\subsection{Motivazioni}
+\begin{itemize}
+    \item Per lunghi periodi di tempo, durante il processo di sviluppo, il progetto non è in uno stato funzionante o in uno stato utilizzabile. Sopratutto in progetti dove si sviluppa in un singolo ramo di sviluppo (centralized work-flow).
+    \item Nessuno è interessato a provare ad eseguire l'intera applicazione fino a quando non è finito il processo di sviluppo.
+    \item In questi progetti spesso viene pianificata la fase di integrazione alla fine del processo di sviluppo. In questa fase gli sviluppatori effettuano attività di merge ed effettuano attività di verifica e validazione.
+\end{itemize}
+
+\subsubsection{Problema: Integration Hell}
+La fase di integrazione può richiedere molto tempo e nel caso peggiore nessuno ha modo di sapere quanto terminerò e di conseguenza quando l’applicazione può essere rilasciata
+
+\subsubsection{Soluzione: Continuous integration}
+La CI consente ad un team di intensificare l’attività di sviluppo e test integrando gli sviluppo il più spesso possibile.
+
+\subsection{Processo}
+\begin{itemize}
+    \item Al completamento di un'attività viene costruito il prodotto: ogni volta che uno sviluppatore invia un commit al VCS viene eseguito il processo di build (compilazione e test).
+    \item 2 casi:
+    \begin{itemize}
+        \item Successo: la modifica è integrata nel software senza causare errori tra quelli testati.
+        \item Fallimento: se il processo di costruzione fallisce l'attività non continua fino a che il prodotto non viene riparato. Se non è possibile ripararlo si ritorna all’ultima versione funzionante.
+    \end{itemize}
+    \item In questo modo si assicura la presenza di un prodotto consistente potenzialmente pronto per essere validato e rilasciato
+\end{itemize}
+
+\subsubsection{Prerequisiti}
+Per implementare la pratica di CI è necessario che:
+\begin{itemize}
+    \item Il codice del progetto venga gestito in un VCS
+    \item Il processo di build del progetto sia automatico
+    \item Il processo di build esegua delle verifiche automatiche (test di unità, test di integrazione, analisi statica del codice)
+    \item il team di sviluppo adotti correttamente questa pratica
+\end{itemize}
+
+\subsubsection{Processo in dettaglio}
+\begin{enumerate}
+    \item Controllo se il processo di build è in esecuzione nel sistema di CI:
+    \begin{itemize}
+        \item se è in esecuzione, aspetto che finisca
+        \item se fallisce, lavoro con il team in modo da sistemare il problema
+    \end{itemize}
+    \item Quando il processo di build ha terminato con successo, aggiorno il codice nel mio workspace con il codice del VCS ed effettuo l’integrazione in locale.
+    \item Eseguo il processo di build in locale in modo da verificare che tutto funzioni correttamente:
+    \begin{itemize}
+        \item se ha successo, invio le modifiche al VSC
+        \item altrimenti, risolvo il problema in locale e riprovo
+    \end{itemize}
+    \item Attendo che il sistema di CI esegua il processo di build con i miei cambiamenti:
+    \begin{itemize}
+        \item se fallisce, sistemo il problema in locale e riprendo dal punto 3
+        \item se ha successo, passo allo sviluppo dell’attività successiva
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Best Practices}
+
+\subsubsection{Integrare frequentemente gli sviluppi}
+In questo modo:
+\begin{itemize}
+    \item le modifiche da integrare saranno poche e più facile da gestire.
+    \item Se viene segnalato un errore dall’esecuzione del processo di build sarà più semplice
+    identificare il codice che ha introdotto l’errore
+\end{itemize}
+
+\subsubsection{Creare una Automated Test Suite}
+Se non vengono eseguiti dei test automatici per verificare e validare il progetto, il
+processo di build può solo verificare se il codice integrato compila correttamente.
+I test che possono essere eseguiti nel processo di CI sono:
+\begin{itemize}
+    \item Test di unità
+    \item Test di integrazione
+    \item Analisi statica
+\end{itemize}
+
+\subsubsection{Avere un processo di Build and Test breve}
+Se il processo di Build è lento:
+\begin{itemize}
+    \item Gli sviluppatori smetteranno di eseguire il processo di build e i test prima di inviare le modifiche al VCS.
+    \item Ci saranno delle build eseguite in maniera concorrente quando il sistema è libero. Sarà più difficile individuarela build che ha causato l’errore.
+    \item Si disincentiva l’invio frequente delle modifiche al VCS
+\end{itemize}
+
+\subsubsection{Gestire il nostro Workspace}
+Ogni sviluppatore deve essere in grado di:
+\begin{itemize}
+    \item Eseguire in locale il processo. Per questo motivo nel VCS devo esserci i file per:
+    \begin{itemize}
+        \item build: codice di produzione.
+        \item test: codice di test.
+        \item deploy: script richiesti per configurare ambiente di esecuzione del progetto.
+    \end{itemize}
+    \item \textbf{Always Be Prepared to Revert to the Previous Revision:} scaricare le modifiche dal VCS e essere in grado di ripristinare il progetto ad uno stato consistente.
+    \item \textbf{Never Go Home on a Broken Build:} verificare l’esito della compilazione nel CI server. Se il processo CI fallisce lo sviluppatore deve risolvere il problema o ripristinare la versione VCS all’ultimo stato consistente.
+\end{itemize}
+
+\subsubsection{Fix una build in errore subito}
+Se non è possibile correggere l’errore che ha fatto fallire la build velocemente, ripristinare lo stato del VCS all’ultima versione funzionante.
+Non è ammesso correggere il problema commentano le verifiche che hanno fatto fallire la build.
+
+\subsubsection{Tutti possono vedere cosa succede}
+Ogni componente del team deve poter vedere:
+\begin{itemize}
+    \item Lo stato della build deve essere pubblicato in un servizio visibile a tutto il team di progetto.
+    \item Lo stato del progetto e capire qual’è.
+    \item L’ultima versione in cui è stato eseguito il processo di build con successo.
+\end{itemize}
+In caso di fallimento del processo di build deve essere possibile:
+\begin{itemize}
+    \item Identificare chi ha introdotto l’errore.
+    \item Avere a disposizione in log per identificare quale parte della build è fallita.
+    \item Avere a disposizione una lista dei commit che hanno introdotto l’errore.
+\end{itemize}
+
+\newpage
