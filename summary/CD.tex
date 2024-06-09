@@ -1,0 +1,53 @@
+\section{Continuous Delivery}
+\begin{mdframed}
+    \textbf{Continuous Delivery:} approccio di ingegneria del software in cui i team producono software in cicli brevi, assicurando che il software possa essere rilasciato in modo affidabile in qualsiasi momento e, quando lo rilasciano, lo fanno manualmente.
+\end{mdframed}
+Lo scopo è costruire, testare e rilasciare software con maggiore velocità e frequenza. 
+Serve per ridurre i costi, il tempo e il rischio di cambiamenti nel rilascio rendendo maggiormente incrementale il rilascio delle applicazioni in produzione. \\ \\
+CD è una disciplina di sviluppo software con la quale il software viene costruito in modo tale che possa essere rilasciato in produzione in qualsiasi momento.
+Nella pratica questo significa che:
+\begin{itemize}
+    \item Il software è rilasciabile attraverso tutto il suo ciclo di vita.
+    \item Il team da la priorità a mantenere il software rilasciabile rispetto ad aggiungere nuove funzionalità.
+    \item Chiunque può ottenere un feedback automatizzato sulla readiness dei sistemi ogni qualvolta qualcuno fa una modifica.
+    \item Si possono ottenere rilasci di qualsiasi versione del software in qualsiasi ambiente a comando.
+    \item Si integrano le pratiche di CI del team di sviluppo integrando il building degli eseguibili e eseguendo test automatizzati sugli eseguibili.
+\end{itemize}
+L’obiettivo è trasformare il rilascio di un sistema di qualsiasi dimensione in un processo prevedibile che può essere eseguito a richiesta.
+Il modo per farlo è assicurarsi che il codice sia sempre pronto al rilascio, anche nel caso di cambiamenti continui da parte di team di sviluppatori molto grandi.
+Tutte le parti successive alla fine dello sviluppovengono eliminate.
+
+\subsection{Problemi}
+La Continuous Integration permette di avere feedback su problemi introdotti
+dagli sviluppatori.
+Si focalizza sulla parte DEV e assicura che:
+\begin{itemize}
+    \item Il codice compili
+    \item Vengono eseguiti i test di unità, integrazione, accettazione e l’analisi statica
+\end{itemize}
+Questo non è sufficiente per garantire la possibilità di rilasciare il prodotto ad ogni modifica perché le attività che di solito fanno perdere più tempo avvengono nella fase di rilascio e test (e nella comunicazione e la collaborazione tra DEV TEST e OPS)
+
+\subsubsection{Problemi Comuni}
+\begin{itemize}
+    \item \textbf{OPS:} i sistemisti aspettano tempo per riceve la documentazione con le procedure di rilascio.
+    \item \textbf{TEST:} i tester attendono tempo per effettuare verifiche e validazione nella versione giusta.
+    \item \textbf{DEV:} il team di sviluppo riceve segnalazioni di bug su funzionalità che sono state rilasciate da settimane.
+    \item \textbf{Archiettura:} ci si rende conto solo alla fine dello sviluppo che l’archittetura scelta non permette di soddisfare i requisiti non funzionali.
+\end{itemize}
+
+
+\subsubsection{Conseguenze}
+\begin{itemize}
+    \item \textbf{Non rilasciabile:} perchè si è impiegato troppo a farlo entrare in produzione.
+    \item \textbf{Contiene difetti:} contiene difetti perchè il ciclo di feedback tra team di development, testing e operations è troppo lungo.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+\newpage
