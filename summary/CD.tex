@@ -35,19 +35,123 @@ Questo non è sufficiente per garantire la possibilità di rilasciare il prodott
     \item \textbf{Archiettura:} ci si rende conto solo alla fine dello sviluppo che l’archittetura scelta non permette di soddisfare i requisiti non funzionali.
 \end{itemize}
 
-
 \subsubsection{Conseguenze}
 \begin{itemize}
     \item \textbf{Non rilasciabile:} perchè si è impiegato troppo a farlo entrare in produzione.
     \item \textbf{Contiene difetti:} contiene difetti perchè il ciclo di feedback tra team di development, testing e operations è troppo lungo.
 \end{itemize}
 
+\subsection{Deployment Pipeline} 
+L’obiettivo è quello di migliorare il processo che permette di rilasciare una modifica al codice sorgente del progetto in produzione.
+\begin{multicols}{2}
+    \raggedright
+    Una \textbf{Value Chain} è una modellazione del processo per misurare:
+    \begin{itemize}
+        \item Il Valore Globale
+        \item Il Valore residuo da inserire nella “Value Chain” (il miglioramento)
+        \item[]
+    \end{itemize}
+    \columnbreak
+    Una \textbf{Deployment Pipeline} dà gli stessi risultati di una Value Chain negli altri settori non software:
+    \begin{itemize}
+        \item Controllare le prestazioni
+        \item Migliorarne l'efficienza
+        \item "Fast is cheap": le Pipeline permetto di trovare i problemi il prima possibile
+    \end{itemize}
+\end{multicols}
+\begin{mdframed}
+    \textbf{Deployment Pipeline}: modellazione del processo di Deployment tramite una successione di fasi (stages) e verifiche (gates).
+\end{mdframed}
+\begin{itemize}
+    \item Il passaggio da una fase all’altra viene verificato tramite il superamento di una verifica
+    \item Il passaggio di una fase può scatenare una notifica
+    \item È guidato dal concetto di Fail-Fast
+    \item È Composta da stages mappate su attività misurabili (build, test)
+    \item La transazione tra due stages viene definita gate
+    \item Può essere automatica o manuale
+    \item I gates scatenano il passaggio allo stage successivo
+    \item Gli Stages possono essere eseguiti in parallelo e/o in sequenza
+    \item I gates possono essere multi direzionali
+\end{itemize}
 
+\subsection{Realizzazione}
+\begin{itemize}
+    \item Avere un rapporto di lavoro collaborativo con tutti i partecipanti (dev, test e ops)
+    \item Utilizzare le Deployment Pipelines per definire il processo di build, test e deploy dell’applicazione.
+    \item Distribuire il processo di build e deploy su più ambienti
+\end{itemize}
 
+\subsubsection{Requisiti}
+\begin{itemize}
+    \item \textbf{Continuous Integration:}
+    \begin{itemize}
+        \item VCS
+        \item Build automation
+        \item Unit Testing
+        \item Artifact Repository
+    \end{itemize}
+    \item \textbf{Configuration Management:} strumenti che ci permettono, di gestire tramite codice, la configurazione degli ambienti dove dovrà essere rilasciato il nostro software
+    \item \textbf{Continuous Testing:} test automatici a livello di sistema funzionali e non funzionali
+    \item \textbf{Orchestratore:} sistema software che ci permette di modellare le esecuzioni delle pipeline
+\end{itemize}
 
+\subsection{Practices}
 
+\subsubsection{Only Build your Binaries once}
+Eseguire il processo di build UNA sola volta. Lo stesso artefatto verrà utilizzato per le verifiche in ogni ambiente.
+In questo modo:
+\begin{itemize}
+    \item L’artefatto che verrà rilasciato in produzione è lo stesso che è stato verificato e validato nelle stages della pipeline
+    \item Forma di ottimizzazione (faccio il lavoro solo una volta)
+\end{itemize}
+È consigliabile avere un Artifact Repository dove rilasciare gli artefatti.
+L’artefatto generato deve essere indipendente dall’ambiente di esecuzione.
+Tenere il codice separato dall’ambiente di esecuzione.
 
+\subsubsection{Deploy the Same Way to Every Environment}
+Utilizzare lo stesso script per effettuare il rilascio in ambienti differenti.
+Lo script di rilascio sarà più solido perché verrà verificato maggiormente.
 
+\subsubsection{Smoke-Test your Deployments}
+Per verificare se il rilascio è andato bene prevedere l’esecuzione di smoke-test.
+Gli smoke-test devono anche verificareil corretto funzionamento dei sub-system esterni
+L’obbiettivo è sempre quello del fail fast, bisogna cercaregli errori in modo da far fallire la pipeline il più velocemente possibile.
 
+\subsubsection{Deploy into a Copy of Production}
+Prevede di avere a disposizione un ambiente con le stesse caratteristiche (o simili) dell’ambiente di produzione.
+Quindi è necessario eseguire i test e gli script di rilascio in ambienti il più possibile simili all’ambiente di produzione.
+La gestione dell’ambiente di rilascio è il Configuration Management.
+L’ambiente dovrà avere:
+\begin{itemize}
+    \item La stessa configurazione di rete
+    \item Lo stesso SO
+    \item Lo stesso stack applicativo
+    \item Gestione dei dati consistente
+\end{itemize}
+
+\subsubsection{Each Change should Propagate through the Pipeline Instantly}
+Ogni modifica al codice sorgente deve avviare la pipeline.
+La pipeline impiegà molto tempo per eseguire l’intero processo e servono verifiche negli stages che la facciano fallire il prima possiible.
+La CI non eseguirà ad ogni commitè sarà più difficile identificare l’errore.
+Per questo si consiglia un server CI che possa eseguire il processo di CI apartire da uno specifico commit.
+In questo modo sarà più semplice effettuare attività di debug per identificare la modifica che ha fatto fallire il processo
+
+\subsubsection{If any Part of the Pipeline Fails, Stop the Line}
+Eseguire per primi i controlli veloci e meno esaustivi.
+In questo modo si può far fallire la pipeline e notificare il team del problema.
+
+\newpage
+\subsection{Benefici}
+\begin{itemize}
+    \item \textbf{Ridurre il rischio legato al deploy:} dal momento che si sta distribuendo piccole modifiche, è meno probabile corrompere il sistema ed è più facile risolvere l’errore in caso di problemi.
+    \item \textbf{Velocizza il time to market:} questa pratica porta ad avere rilasci più frequenti
+    \item \textbf{Maggiori feedback da parte degli utenti}
+    \item \textbf{Progressi tangibili:} molti team diversi monitorano i progressi. Cioè la semplice conferma da parte degli sviluppatori che qualcosa è stato fatto è molto meno forte rispetto a "fatto, verificato e distribuito in un ambiente di
+    produzione".
+    \item \textbf{Minor costo:} diretta conseguenza dell’automazione
+    \item \textbf{Prodotti migliori:} che soddisfano le aspettative degli utenti
+    \item \textbf{Team meno stressati e più collaborativi}
+    \item \textbf{Maggiore documentazione implicita}
+\end{itemize}
 
 \newpage
